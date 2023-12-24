@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{Admin/base::layout(~{::section})}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="${title}">This is home Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="card mr-3 ml-3" th:if="${addFlight}">
+        <div
+          th:if="${session.message}"
+          th:classappend="${session.message.type}"
+          class="alert"
+          role="alert"
+        >
+          <p class="text-center" th:text="${session.message.content}"></p>
+          <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+        </div>
+        <div class="card-body">
+          <div class="container text-center">
+            <img
+              alt="No"
+              style="height: 200px; width: 200px"
+              class="my_profile_picture"
+              th:src="@{/Images/plain.png}"
+              th:onerror="this.src='/images/addFlight.png';"
+            />
+
+            <h3 class="mt-3">
+              <span th:text="${addFlight.flightName}"></span>
+            </h3>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#Flight No</th>
+                  <th scope="col">
+                    <span th:text="${addFlight.flightNo}"></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">From</th>
+                  <td><span th:text="${addFlight.From}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">To</th>
+                  <td><span th:text="${addFlight.To}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Departure</th>
+                  <td><span th:text="${addFlight.departure}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Arrival</th>
+                  <td><span th:text="${addFlight.arrival}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Duration</th>
+                  <td><span th:text="${addFlight.duration}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Day of Flight</th>
+                  <td>
+                    <span
+                      th:text="${#strings.arrayJoin(addFlight.days,',')}"
+                    ></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Enabled</th>
+                  <td><span th:text="${addFlight.enabled}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Business Class Price</th>
+                  <td><span th:text="${addFlight.B_price}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Economy Class Price</th>
+                  <td><span th:text="${addFlight.E_price}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Trip Type</th>
+                  <td><span th:text="${addFlight.tripType}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Business Class</th>
+                  <td><span th:text="${addFlight.businessClass}"></span></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Economy Class</th>
+                  <td><span th:text="${addFlight.economyClass}"></span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- <div class="description mt-3">
+						  	<th:block th:utext="${addFlight.description}"></th:block>
+					 </div> -->
+            <div class="container mt-3">
+              <button
+                th:onclick="|deleteFlight(${addFlight.flightNo})|"
+                class="btn btn-danger btn-sm btn-block"
+              >
+                Delete
+              </button>
+              <form
+                th:action="@{'/admin/update_flight/'+${addFlight.flightNo}}"
+                class="mt-2"
+              >
+                <button type="submit" class="btn btn-primary btn-sm btn-block">
+                  Update
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1
+        th:unless="${addFlight}"
+        class="text-center ml-3 mr-3 p-3 bg-danger text-white"
+      >
+        You dont't have permission to see this addFlight.....
+      </h1>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{Admin/base::layout(~{::section})}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>This is Customer Edit Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="my-card mt-4 mb-4">
+              <div
+                th:if="${session.message}"
+                th:classappend="${session.message.type}"
+                class="alert"
+                role="alert"
+              >
+                <p class="text-center" th:text="${session.message.content}"></p>
+                <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+              </div>
+              <h1 class="text-center">Customer Edit</h1>
+              <form
+                th:action="@{/admin/editCustomer}"
+                th:method="post"
+                th:object="${edituser}"
+              >
+                <!-- name field -->
+                <div class="form-group">
+                  <label for="name_field">User Name</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="name"
+                    required
+                    th:value="${edituser.name}"
+                  />
+                </div>
+
+                <!-- Email field -->
+                <div class="form-group">
+                  <label for="email_field">User Email</label>
+
+                  <span
+                    class="form-control"
+                    id="email_field"
+                    th:text="${edituser.email}"
+                    readonly
+                  ></span>
+                </div>
+
+                <!-- user about field -->
+                <div class="form-group">
+                  <label for="address_field">User Address</label>
+                  <textarea
+                    id="address_field"
+                    name="address"
+                    rows="4"
+                    class="form-control"
+                    placeholder="Enter Your Address"
+                    th:text="${edituser.address}"
+                  ></textarea>
+                </div>
+
+                <!-- Gender selection -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="inlineRadio1"
+                    value="Male"
+                  />
+                  <label class="form-check-label" for="inlineRadio1"
+                    >Male</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="inlineRadio2"
+                    value="Female"
+                  />
+                  <label class="form-check-label" for="inlineRadio2"
+                    >Female</label
+                  >
+                </div>
+                <div><br /></div>
+                <!-- Mobile number field -->
+                <div class="form-group">
+                  <label for="name_field">User Mobile Number</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="name_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="mobileNo"
+                    required
+                    th:value="${edituser.mobileNo}"
+                  />
+                </div>
+                <!-- Aadhar number field -->
+                <div class="form-group">
+                  <label for="name_field">User Citizen Number</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="name_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="adharNo"
+                    required
+                    th:value="${edituser.adharNo}"
+                  />
+                </div>
+                <div class="container text-center">
+                  <button
+                    type="submit"
+                    class="btn bg-primary btn-block text-white"
+                  >
+                    Update
+                  </button>
+
+                  <button
+                    type="reset"
+                    class="btn btn-warning btn-block text-white"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        /* Link Active */
+        addEventListener("load", () => {
+          document.getElementById("view-link").classList.add("active");
+        });
+
+        addEventListener("unload", () => {
+          document.getElementById("view-link").classList.remove("active");
+        });
+      </script>
+    </section>
+  </body>
+</html>

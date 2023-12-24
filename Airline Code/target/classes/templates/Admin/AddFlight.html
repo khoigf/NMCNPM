@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{Admin/base::layout(~{::section})}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>This is Admin Registration Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="my-card mt-4 mb-4">
+              <div
+                th:if="${session.message}"
+                th:classappend="${session.message.type}"
+                class="alert"
+                role="alert"
+              >
+                <p class="text-center" th:text="${session.message.content}"></p>
+                <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+              </div>
+              <h1 class="text-center">Flight ADD</h1>
+              <form
+                th:action="@{/admin/add_Flight}"
+                th:method="post"
+                th:object="${addFlight}"
+              >
+                <!-- name field -->
+                <div class="form-group">
+                  <label for="name_field">Flight Name</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="flightName"
+                    required
+                    th:value="${addFlight.flightName}"
+                  />
+                </div>
+
+                <!-- From field -->
+                <div class="form-group">
+                  <label for="email_field">From</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="From"
+                    required
+                    th:value="${addFlight.From}"
+                  />
+                </div>
+                <!-- InterMeadit -->
+
+                <div class="form-group">
+                  <label for="email_field">Intermediate</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="intermediate"
+                    th:value="${addFlight.intermediate}"
+                  />
+                </div>
+
+                <!-- To field -->
+                <div class="form-group">
+                  <label for="email_field">TO</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="To"
+                    required
+                    th:value="${addFlight.To}"
+                  />
+                </div>
+                <!-- Departure field -->
+                <div class="form-group">
+                  <label for="email_field">Enter Departure Time</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="departure"
+                    required
+                    th:value="${addFlight.departure}"
+                  />
+                </div>
+                <!-- Arrival field -->
+                <div class="form-group">
+                  <label for="email_field">Enter Arrival Time</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="arrival"
+                    required
+                    th:value="${addFlight.arrival}"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email_field"
+                    >Enter Intermediate Departure Time</label
+                  >
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="int_departure_Time"
+                    th:value="${addFlight.int_departure_Time}"
+                  />
+                </div>
+                <!-- Arrival field -->
+                <div class="form-group">
+                  <label for="email_field"
+                    >Enter Intermediate Arrival Time</label
+                  >
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="int_arrival_Time"
+                    th:value="${addFlight.int_arrival_Time}"
+                  />
+                </div>
+                <!-- Duration field -->
+                <div class="form-group">
+                  <label for="email_field">Enter Duration Time</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="duration"
+                    required
+                    th:value="${addFlight.duration}"
+                  />
+                </div>
+
+                <!-- flight Type -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheckbox1"
+                    name="businessClass"
+                    th:onclick="aadBusinessPrice()"
+                    value="Business"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox1"
+                    >Business Class</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    name="economyClass"
+                    type="checkbox"
+                    id="economyT"
+                    th:onclick="addEconomyPrice()"
+                    value="Economy"
+                  />
+                  <label class="form-check-label" for="economyT"
+                    >Economy Class</label
+                  >
+                </div>
+
+                <!-- B_Price field -->
+                <div class="form-group">
+                  <label for="bPrice_field">Enter Business Class Price</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="bPrice_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="B_price"
+                    required
+                    disabled
+                    th:value="${addFlight.B_price}"
+                  />
+                </div>
+                <!-- E_Price field -->
+                <div class="form-group">
+                  <label for="ePrice_field">Enter Economy Class Price</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="ePrice_field"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="E_price"
+                    required
+                    disabled
+                    th:value="${addFlight.E_price}"
+                  />
+                </div>
+
+                <!-- Trip Type selection -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="tripType"
+                    id="inlineRadio1"
+                    value="One_Trip"
+                  />
+                  <label class="form-check-label" for="inlineRadio1"
+                    >One Trip</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="tripType"
+                    id="inlineRadio2"
+                    value="Round_Trip"
+                  />
+                  <label class="form-check-label" for="inlineRadio2"
+                    >Round Trip</label
+                  >
+                </div>
+                <div><br /></div>
+                <!-- Business Class Seat field -->
+                <div class="form-group">
+                  <label for="B_seat">Enter Business Class Seat</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="B_seat"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="B_Seat"
+                    required
+                    disabled
+                    th:value="${addFlight.B_Seat}"
+                  />
+                </div>
+                <!-- Economy Class Seat field -->
+                <div class="form-group">
+                  <label for="E_seat">Enter Economy Class Seat</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="E_seat"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Here"
+                    name="E_seat"
+                    disabled
+                    required
+                    th:value="${addFlight.E_seat}"
+                  />
+                </div>
+                <!-- days -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheck"
+                    name="days"
+                    value="Sun"
+                  />
+                  <label class="form-check-label" for="inlineCheck"
+                    >Sunday</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheckbox2"
+                    name="days"
+                    value="Mon"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox2"
+                    >Monday</label
+                  >
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheckbox3"
+                    name="days"
+                    value="Tue"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox3"
+                    >Tuesday</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheckbox4"
+                    name="days"
+                    value="Wed"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox4"
+                    >Wednesday</label
+                  >
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheckbox5"
+                    name="days"
+                    value="Thu"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox5"
+                    >Thursday</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheckbox6"
+                    name="days"
+                    value="Fri"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox6"
+                    >Friday</label
+                  >
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inlineCheckbox7"
+                    name="days"
+                    value="Sat"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox7"
+                    >Saturday</label
+                  >
+                </div>
+                <div class="container text-center mt-4">
+                  <button
+                    type="submit"
+                    class="btn bg-primary btn-block text-white"
+                  >
+                    Submit
+                  </button>
+
+                  <button
+                    type="reset"
+                    class="btn btn-warning btn-block text-white"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        function aadBusinessPrice() {
+          var busi = document.getElementById("inlineCheckbox1");
+          var b_price = document.getElementById("bPrice_field");
+          var B_seat = document.getElementById("B_seat");
+          if (busi.checked) {
+            b_price.disabled = false;
+            B_seat.disabled = false;
+          } else {
+            b_price.value = "";
+            b_price.disabled = true;
+            B_seat.value = "";
+            B_seat.disabled = true;
+          }
+        }
+        function addEconomyPrice() {
+          var busi = document.getElementById("economyT");
+          var b_price = document.getElementById("ePrice_field");
+          var E_seat = document.getElementById("E_seat");
+          if (busi.checked) {
+            b_price.disabled = false;
+            E_seat.disabled = false;
+          } else {
+            b_price.value = "";
+            b_price.disabled = true;
+            E_seat.value = "";
+            E_seat.disabled = true;
+          }
+        }
+
+        /* Link Active */
+        addEventListener("load", () => {
+          document.getElementById("add-link").classList.add("active");
+        });
+
+        addEventListener("unload", () => {
+          document.getElementById("add-link").classList.remove("active");
+        });
+      </script>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Forget</title>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="col-md-12">
+          <div class="card">
+            <div
+              th:if="${session.message}"
+              th:classappend="${session.message.type}"
+              class="alert"
+              role="alert"
+            >
+              <p class="text-center" th:text="${session.message.content}"></p>
+              <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+            </div>
+            <div class="card-body" th:if="${sendPass1}">
+              <h3 class="my-3 text-center">Forget Password</h3>
+
+              <form th:action="@{/forget}" th:method="post">
+                <!-- Email field -->
+                <div class="form-group">
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Enter Email"
+                    required
+                  />
+                </div>
+
+                <div class="container text-center">
+                  <button type="submit" class="btn btn-success">Send</button>
+                  <button type="reset" class="btn btn-warning">Reset</button>
+                </div>
+              </form>
+            </div>
+            <div class="card-body" th:if="${val}">
+              <h3 class="my-3 text-center">Type OTP</h3>
+
+              <form th:action="@{/verify}" th:method="post">
+                <!-- Email field -->
+                <div class="form-group">
+                  <input
+                    type="number"
+                    name="otp"
+                    class="form-control"
+                    placeholder="Enter OTP"
+                    required
+                  />
+                </div>
+
+                <div class="container text-center">
+                  <button type="submit" class="btn btn-success">Verify</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- type new Password -->
+            <div class="card-body" th:if="${sendPass}">
+              <h3 class="my-3 text-center">Type Password</h3>
+
+              <form th:action="@{/f_pass}" th:method="post">
+                <!--Password field -->
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="pass"
+                    class="form-control"
+                    placeholder="Enter Password"
+                    required
+                  />
+                </div>
+
+                <div class="container text-center">
+                  <button type="submit" class="btn btn-success">Verify</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        addEventListener("load", () => {
+          document.getElementById("settings-link").classList.add("active");
+        });
+
+        addEventListener("unload", () => {
+          document.getElementById("settings-link").classList.remove("active");
+        });
+      </script>
+    </section>
+  </body>
+</html>

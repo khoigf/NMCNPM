@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>This is home Page</title>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style type="text/css">
+	body {
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <address>
+                        <strong>Cafe</strong>
+                        <br>
+                        135 Noi Bai
+                        <br>
+                        Ha Noi
+                        <br>
+                        <abbr title="Phone">P:</abbr> (+84) 484-6829-xxx
+                    </address>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <p>
+                        <em>Date: <span th:text="${book_t.date}"></span></em>
+                    </p>
+                    <p>
+                        <em>Receipt #: 34522677W</em>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <h1>Receipt</h1>
+                </div>
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>#</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody th:if="${book_t.tripType=='Round_Trip'}">
+                        <tr>
+                            <td class="col-md-9"><em><span th:text="${book_t.trivalClass}"></span>Class </em></td>
+                            <td class="col-md-1" style="text-align: center" th:text="${#arrays.length(book_t.seatStore)}">  </td>
+                            <td class="col-md-1 text-center"><span th:text="${class_price}"></span>&#x20B9</td>
+                            <td class="col-md-1 text-center"><span th:text="${before_food}"></span>&#x20B9</td>
+                        </tr>
+                        
+                        <tr >
+                            <td class="col-md-9"><em>Round_Trip <span th:text="${book_t.round_trivalClass}"></span>Class </em></td>
+                            <td class="col-md-1" style="text-align: center" th:text="${#arrays.length(book_t.round_seatStore)}">  </td>
+                            <td class="col-md-1 text-center"><span th:text="${Round_class_price}"></span>&#x20B9</td>
+                            <td class="col-md-1 text-center"><span th:text="${before_food_Round}"></span>&#x20B9</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="col-md-9"><em>Food Item</em></td>
+                            <td class="col-md-1" style="text-align: center" th:text="${#arrays.length(numberOfFoodOneTrip)}"> 1 </td>
+                            <td class="col-md-1 text-center"><span th:text="${#strings.arrayJoin(numberOfFoodOneTrip,',')}"></span>&#x20B9</td>
+                            <td class="col-md-1 text-center"><span th:text="${totalFood}"></span>&#x20B9</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-9"><em>Round_Trip Food Item</em></td>
+                            <td class="col-md-1" style="text-align: center" th:text="${#arrays.length(numberOfFoodRoundTrip)}"> 1 </td>
+                            <td class="col-md-1 text-center"><span th:text="${#strings.arrayJoin(numberOfFoodRoundTrip,',')}"></span>&#x20B9</td>
+                            <td class="col-md-1 text-center"><span th:text="${totalFoodRound}"></span>&#x20B9</td>
+                        </tr>
+                        <!-- <tr>
+                            <td class="col-md-9"><em>Baked Tart with Thyme and Garlic</em></h4></td>
+                            <td class="col-md-1" style="text-align: center"> 3 </td>
+                            <td class="col-md-1 text-center">$16</td>
+                            <td class="col-md-1 text-center">$48</td>
+                        </tr> -->
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right">
+                            <p>
+                                <strong>Subtotal: </strong>
+                            </p>
+                            <p>
+                                <strong>Tax: </strong>
+                            </p></td>
+                            <td class="text-center">
+                            <p>
+                                <strong><span th:text="${seatPrice}"></span>&#x20B9</strong>
+                            </p>
+                            <p>
+                                <strong><span th:text="${tax}"></span>&#x20B9</strong>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong><span th:text="${totalPrice}"></span>&#x20B9</strong></h4></td>
+                        </tr>
+                    </tbody>
+                    
+                    
+                    <tbody th:unless="${book_t.tripType=='Round_Trip'}">
+                        
+                        <tr >
+                            <td class="col-md-9"><em><span th:text="${book_t.trivalClass}"></span>Class </em></h4></td>
+                            <td class="col-md-1" style="text-align: center" th:text="${#arrays.length(book_t.seatStore)}">  </td>
+                            <td class="col-md-1 text-center"><span th:text="${class_price}"></span>&#x20B9</td>
+                            <td class="col-md-1 text-center"><span th:text="${before_food}"></span>&#x20B9</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="col-md-9"><em>Food Item</em></h4></td>
+                            <td class="col-md-1" style="text-align: center" th:text="${#arrays.length(numberOfFood)}"> 1 </td>
+                            <td class="col-md-1 text-center"><span th:text="${#strings.arrayJoin(numberOfFood,',')}"></span>&#x20B9</td>
+                            <td class="col-md-1 text-center"><span th:text="${totalFood}"></span>&#x20B9</td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right">
+                            <p>
+                                <strong>Subtotal: </strong>
+                            </p>
+                            <p>
+                                <strong>Tax: </strong>
+                            </p></td>
+                            <td class="text-center">
+                            <p>
+                                <strong><span th:text="${seatPrice}"></span>&#x20B9</strong>
+                            </p>
+                            <p>
+                                <strong><span th:text="${tax}"></span>&#x20B9</strong>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong><span th:text="${book_t.price}"></span>&#x20B9</strong></h4></td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+                <form th:action="@{/user/payment}">
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                    Pay Now   <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

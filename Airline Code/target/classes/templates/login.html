@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${title}">Login</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style type="text/css">
+      body {
+        background-image: url("./Images/Business-travel.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container"
+      style="
+        width: 400px;
+        height: auto;
+        background: rgba(0, 0, 0, 0.5);
+        margin-top: 120px;
+        border-radius: 10px;
+      "
+    >
+      <div class="text-center mb-3">
+        <h2 class="text-white">Login</h2>
+      </div>
+      <div
+        th:if="${param.error}"
+        class="alert alert-danger text-center ml-5 mr-5"
+      >
+        Invalid Uasername and Password
+      </div>
+      <div
+        th:if="${param.logout}"
+        class="alert alert-success text-center ml-5 mr-5"
+      >
+        You have been logged out
+      </div>
+      <form th:action="@{/dologin}" th:method="post">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label text-white"
+            >Username</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Enter Username"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label text-white"
+            >Password</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Enter Password"
+          />
+        </div>
+
+        <div class="text-center mt-4 mb-3">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a th:href="@{/}" class="btn btn-warning">Back</a>
+        </div>
+
+        <label style="margin-left: 70px; color: white"
+          >Don't have any Account?<a
+            th:href="@{/signup}"
+            href=""
+            style="color: limegreen; font-weight: bold"
+            >Signup</a
+          >
+          <br />
+          <p style="text-align: center">
+            <a
+              th:href="@{/forget}"
+              href=""
+              style="text-decoration: none; font-weight: bold"
+              >Forgot Password?</a
+            >
+          </p>
+        </label>
+      </form>
+    </div>
+  </body>
+</html>

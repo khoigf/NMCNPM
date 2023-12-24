@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{Admin/base::layout(~{::section})}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="title">This is Profile Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="container text-center">
+        <div class="card" style="margin-top: 4%; border-radius: 10px">
+          <div class="card-body mt-5">
+            <div class="profile-pic-div">
+              <img
+                th:if="${user1.gender} == 'Male'"
+                th:src="@{/Images/default.png}"
+                th:onerror="this.src='/images/default.png';"
+                id="photo"
+                name="photo"
+              />
+              <img
+                th:if="${user1.gender} == 'Female'"
+                th:src="@{/Images/female.png}"
+                th:onerror="this.src='/images/default.png';"
+                id="photo"
+                name="photo"
+              />
+            </div>
+
+            <h3 class="mt-3"><span th:text="${user1.name}"></span></h3>
+
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#USER1Id</th>
+                    <th scope="col">
+                      HALS2023<span th:text="${user1.uId}"></span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td><span th:text="${user1.email}"></span></td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Role</th>
+                    <td><span th:text="${user1.role}"></span></td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Account Active</th>
+                    <td><span th:text="${user1.enabled}"></span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Your Address</th>
+                    <td><span th:text="${user1.address}"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        /* Link Active */
+        addEventListener("load", () => {
+          document.getElementById("view-link").classList.add("active");
+        });
+
+        addEventListener("unload", () => {
+          document.getElementById("view-link").classList.remove("active");
+        });
+      </script>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Bootstrap Multiple Item Product Carousel</title>
+
+<link rel="stylesheet" th:href="@{/CSS/style.css}" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/JS/script.js}"></script>
+<style>
+body{
+background: #e2eaef;
+	font-family: "Open Sans", sans-serif;
+}
+h2 {
+	color: #000;
+	font-size: 26px;
+	font-weight: 300;
+	text-align: center;
+	text-transform: uppercase;
+	position: relative;
+	margin: 30px 0 60px;
+}
+h2::after {
+	content: "";
+	width: 100px;
+	position: absolute;
+	margin: 0 auto;
+	height: 4px;
+	border-radius: 1px;
+	background: #7ac400;
+	left: 0;
+	right: 0;
+	bottom: -20px;
+}
+.carousel {
+	margin: 50px auto;
+	padding: 0 70px;
+}
+.carousel .item {
+	color: #747d89;
+	min-height: 325px;
+	text-align: center;
+	overflow: hidden;
+}
+.carousel .thumb-wrapper {
+	padding: 25px 15px;
+	background: #808080 !important;
+	border-radius: 6px;
+	text-align: center;
+	position: relative;
+	box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+.carousel .item .img-box {
+	height: 120px;
+	margin-bottom: 20px;
+	width: 100%;
+	position: relative;
+}
+.carousel .item img {	
+	max-width: 100%;
+	max-height: 100%;
+	display: inline-block;
+	position: absolute;
+	bottom: 0;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+}
+.carousel .item h4 {
+	font-size: 18px;
+}
+.carousel .item h4, .carousel .item p, .carousel .item ul {
+	margin-bottom: 5px;
+}
+.carousel .thumb-content .btn {
+	color: #7ac400;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	border: 1px solid #7ac400;
+	padding: 6px 14px;
+	margin-top: 5px;
+	line-height: 16px;
+	border-radius: 20px;
+}
+.carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+	color: #fff;
+	background: #7ac400;
+	box-shadow: none;
+}
+.carousel .thumb-content .btn i {
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+.carousel .item-price {
+	font-size: 13px;
+	padding: 2px 0;
+}
+.carousel .item-price strike {
+	opacity: 0.7;
+	margin-right: 5px;
+}
+.carousel-control-prev, .carousel-control-next {
+	height: 44px;
+	width: 40px;
+	background: #7ac400;	
+	margin: auto 0;
+	border-radius: 4px;
+	opacity: 0.8;
+}
+.carousel-control-prev:hover, .carousel-control-next:hover {
+	background: #78bf00;
+	opacity: 1;
+}
+.carousel-control-prev i, .carousel-control-next i {
+	font-size: 36px;
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	margin: -19px 0 0 0;
+	z-index: 5;
+	left: 0;
+	right: 0;
+	color: #fff;
+	text-shadow: none;
+	font-weight: bold;
+}
+.carousel-control-prev i {
+	margin-left: -2px;
+}
+.carousel-control-next i {
+	margin-right: -4px;
+}		
+.carousel-indicators {
+	bottom: -50px;
+}
+.carousel-indicators li, .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
+	margin: 4px;
+	border-radius: 50%;
+	border: none;
+}
+.carousel-indicators li {	
+	background: rgba(0, 0, 0, 0.2);
+}
+.carousel-indicators li.active {	
+	background: rgba(0, 0, 0, 0.6);
+}
+.carousel .wish-icon {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	z-index: 99;
+	cursor: pointer;
+	font-size: 16px;
+	color: #abb0b8;
+}
+.carousel .wish-icon .fa-heart {
+	color: #ff6161;
+}
+.star-rating li {
+	padding: 0;
+}
+.star-rating i {
+	font-size: 14px;
+	color: #ffc000;
+}
+</style>
+<script>
+$(document).ready(function(){
+	$(".wish-icon i").click(function(){
+		$(this).toggleClass("fa-heart fa-heart-o");
+	});
+});	
+</script>
+</head>
+<body>
+
+
+ <!-- navebar -->
+    
+    <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-primary">
+  
+  <a class="navbar-brand" href="#" th:href="@{/user/user_home}">Hust Airline System</a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  
+    <ul class="navbar-nav ml-auto text-uppercase">
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/user/user_home}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+      
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/user/profile}" tabindex="-1" aria-disabled="true"> 
+        <img class="img-fluid my_profile_picture" th:if="${user.gender} == 'Male'" alt="" th:src="@{/Images/default.png}" th:onerror="this.src='/Images/default.png';"> 
+        <img th:if="${user.gender} == 'Female'" class="img-fluid my_profile_picture" alt="" th:src="@{/Images/female.png}" th:onerror="this.src='/Images/default.png';"> 
+        <samp th:text="${user.name}"> </samp></a>
+      </li>
+      
+       <li class="nav-item">
+        <a class="nav-link " th:href="@{/logout}" tabindex="-1" aria-disabled="true">Logout</a>
+      </li>
+      
+    </ul>
+    
+  </div>
+</nav>
+    
+    <!-- End Navebar -->
+    
+    <!-- Sidebar -->  
+    <div class="sidebar mt-2" id="sid">
+    
+    <span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+    
+    <a id="home-link" href="#" th:href="@{/user/user_home}" class="item"><i class="fas fa-home"></i> Home</a>
+    <a id="admin-link" href="#" th:href="@{/user/view_flight}" class="item"><i class="fas fa-street-view"></i>  View Flight</a>
+    <a id="add-link" href="#" th:href="@{/user/view_booking}" class="item"><i class="fas fa-street-view"></i>  View Booking</a>
+    <a id="profile-link" href="#" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile</a>
+    <a id="settings-link" href="#" th:href="@{/user/settings}" class="item"><i class="fas fa-cogs"></i> Setting</a>
+    <a href="#" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <div class="divider"></div>
+    </div>
+    <!--End Sidebar -->
+    
+    <div class="content mt-5" id="content">
+    
+    	<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+    	
+    </div>
+<form  th:action="@{/user/click_pay}" th:method="post">
+<div class="container-xl">
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Airline <b>Food's</b></h2>
+			<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+			<!-- Carousel indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>   
+			<!-- Wrapper for carousel items -->
+			
+			<div class="carousel-inner">
+				<div class="item carousel-item active">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/allupakoida.jpg" class="img-fluid" alt="Allupakoda">									
+								</div>
+								<div class="thumb-content">
+									<h4>Allu Pakoida</h4>									
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<p class="item-price"><strike>400.00 &#x20B9</strike> <b>369.00&#x20B9</b></p>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="369.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/chola.jpg" class="img-fluid" alt="Chola">
+								</div>
+								<div class="thumb-content">
+									<h4>Chola</h4>									
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<p class="item-price"><strike>100.00&#x20B9</strike> <b>50.99&#x20B9</b></p>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="50.99"> Select Food</a>
+								</div>						
+							</div>
+						</div>		
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/maggi.jpg" class="img-fluid" alt="Maggi">
+								</div>
+								<div class="thumb-content">
+									<h4>Maggi </h4>									
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+										</ul>
+									</div>
+									<p class="item-price"><strike>59.00&#x20B9</strike> <b>33.00&#x20B9</b></p>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="33.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>								
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/momo.jpg" class="img-fluid" alt="MOMO">
+								</div>
+								<div class="thumb-content">
+									<h4>Momo</h4>									
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<p class="item-price"><strike>315.00&#x20B9</strike> <b>250.00&#x20B9</b></p>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="250.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="item carousel-item">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/nonvegthali.jpg" class="img-fluid" alt="Nonvagethali">
+								</div>
+								<div class="thumb-content">
+									<h4>Non-Vegthali</h4>
+									<p class="item-price"><strike>289.00&#x20B9</strike> <span>269.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="269.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/vegthali.jpg" class="img-fluid" alt="Vagthali">
+								</div>
+								<div class="thumb-content">
+									<h4>Vag-Thali Pro</h4>
+									<p class="item-price"><strike>199.00&#x20B9</strike> <span>169.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+										</ul>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="169.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/rotiwithmeat.jpg" class="img-fluid" alt="Speaker">
+								</div>
+								<div class="thumb-content">
+									<h4>Roti-With-Meat</h4>
+									<p class="item-price"><strike>315.00&#x20B9</strike> <span>299.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="299.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/rajmarice.jpg" class="img-fluid" alt="RajmaRice">
+								</div>
+								<div class="thumb-content">
+									<h4>Rajma Rice</h4>
+									<p class="item-price"><strike>499.00&#x20B9</strike> <span>369.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="369.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="item carousel-item">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/pizza.jpg" class="img-fluid" alt="Pizza">
+								</div>
+								<div class="thumb-content">
+									<h4>Pizza</h4>
+									<p class="item-price"><strike>659.00&#x20B9</strike> <span>559.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="559.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/samosa.jpg" class="img-fluid" alt="samosa">
+								</div>
+								<div class="thumb-content">
+									<h4>Samosa</h4>
+									<p class="item-price"><strike>100.00&#x20B9</strike> <span>60.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="60.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/sweet.jpg" class="img-fluid" alt="Pixel">
+								</div>
+								<div class="thumb-content">
+									<h4>Sweet</h4>
+									<p class="item-price"><strike>450.00&#x20B9</strike> <span>318.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+										</ul>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="318.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>	
+						<div class="col-sm-3">
+							<div class="thumb-wrapper">
+								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+								<div class="img-box">
+									<img src="/Images/puri.jpg" class="img-fluid" alt="puri">
+								</div>
+								<div class="thumb-content">
+									<h4>Puri</h4>
+									<p class="item-price"><strike>250.00&#x20B9</strike> <span>230.00&#x20B9</span></p>
+									<div class="star-rating">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+										</ul>
+									</div>
+									<a href="#" class="btn btn-primary"><input class="form-check-input" type="checkbox" name="food" value="230.00"> Select Food</a>
+								</div>						
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Carousel controls -->
+			<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+				<i class="fa fa-angle-left"></i>
+			</a>
+			<a class="carousel-control-next" href="#myCarousel" data-slide="next">
+				<i class="fa fa-angle-right"></i>
+			</a>
+		</div>
+		<div class="container text-center">
+			<button type="submit" class="btn btn-success">Click To Pay</button>
+		</div>
+		</div>
+	</div>
+</div>
+</form>
+</body>
+</html>                                		

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{Admin/base::layout(~{::section})}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="title">This is Profile Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="container text-center">
+        <div class="card" style="margin-top: 4%; border-radius: 10px">
+          <div class="card-body mt-5">
+            <h1 class="text-center">All User</h1>
+
+            <!-- Search -->
+            <div class="search-container my-4">
+              <input
+                onkeyup="searchu()"
+                id="searchu-input"
+                type="text1"
+                class="form-control"
+                placeholder="Search by name....."
+              />
+              <div class="searchu-result" id="searchu-result">
+                <!-- search gose here -->
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#USER ID</th>
+                    <th scope="col">USER NAME</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Active</th>
+                    <th scope="col" colspan="1">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="f : ${addUsers}">
+                    <th scope="row" th:text="${f.uId}">1</th>
+                    <td>
+                      <a
+                        th:href="@{'/admin/'+${f.email}+'/user'}"
+                        style="text-decoration: none"
+                      >
+                        <img
+                          alt="No"
+                          th:src="@{/Images/profile.jpg}"
+                          class="my_profile_picture"
+                          src="#"
+                        />
+                      </a>
+                      <span th:text="${f.name}"> Name</span>
+                    </td>
+                    <td th:text="${f.email}">Email</td>
+                    <td th:text="${f.role}">Role</td>
+                    <td th:if="${f.enabled}">
+                      <form
+                        th:action="@{'/admin/userOnOf/'+${f.email}+'/'+${currentPage}+'/'+${f.enabled}}"
+                        id="activityUser"
+                        th:method="post"
+                      >
+                        <input
+                          type="checkbox"
+                          id="onof"
+                          data-toggle="toggle"
+                          data-onstyle="outline-success"
+                          data-offstyle="outline-danger"
+                          value="true"
+                          checked
+                          th:data-thing="${f.email}"
+                          th:name="om1"
+                          th:onchange="|userenable12(this.getAttribute('data-thing'),${currentPage},${f.enabled})|"
+                        />
+                      </form>
+                    </td>
+                    <td th:unless="${f.enabled}">
+                      <form
+                        th:action="@{'/admin/userOnOf/'+${f.email}+'/'+${currentPage}+'/'+${f.enabled}}"
+                        id="activityUser"
+                        th:method="post"
+                      >
+                        <input
+                          type="checkbox"
+                          id="onof"
+                          data-toggle="toggle"
+                          data-onstyle="outline-success"
+                          data-offstyle="outline-danger"
+                          value="true"
+                          th:data-thing="${f.email}"
+                          th:name="om1"
+                          th:onchange="|userenable12(this.getAttribute('data-thing'),${currentPage},${f.enabled})|"
+                        />
+                      </form>
+                    </td>
+                    <td>
+                      <form
+                        th:action="@{'/admin/editCustomer/'+${f.email}}"
+                        class="mt-2"
+                      >
+                        <button type="submit" class="btn btn-primary btn-sm">
+                          Edit
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- pagination Part -->
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li th:if="${currentPage!=0}" class="page-item">
+                  <a
+                    th:href="@{'/admin/viewcustomer/'+${currentPage-1}}"
+                    class="page-link"
+                    href="#"
+                    >Previous</a
+                  >
+                </li>
+
+                <li
+                  th:classappend="${currentPage==i-1} ? 'active' : ''"
+                  th:each="i : ${#numbers.sequence(1,totalPages)}"
+                  class="page-item"
+                >
+                  <a
+                    th:href="@{'/admin/viewcustomer/'+${i-1}}"
+                    class="page-link"
+                    href="#"
+                    ><span th:text="${i}"> </span
+                  ></a>
+                </li>
+
+                <li th:if="${currentPage+1!=totalPages}" class="page-item">
+                  <a
+                    th:href="@{'/admin/viewcustomer/'+${currentPage+1}}"
+                    class="page-link"
+                    href="#"
+                    >Next</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <script>
+        /* Link Active */
+        addEventListener("load", () => {
+          document.getElementById("view-link").classList.add("active");
+        });
+
+        addEventListener("unload", () => {
+          document.getElementById("view-link").classList.remove("active");
+        });
+      </script>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="Normal/base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>This is home Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="card mr-4 ml-4 mb-4 viewBack">
+        <div
+          th:if="${session.message}"
+          th:classappend="${session.message.type}"
+          class="alert"
+          role="alert"
+        >
+          <p class="text-center" th:text="${session.message.content}"></p>
+          <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="inputState">From</label>
+                <select id="inputState" name="From" class="form-control">
+                  <option th:text="${From}">...</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputState">To</label>
+                <select id="inputState" name="To" class="form-control">
+                  <option th:text="${To}">...</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="slectDate">Select Date</label>
+                <input
+                  type="date"
+                  id="slectDate"
+                  class="form-control"
+                  th:min="${date}"
+                  required
+                  name="re_date"
+                  th:data1="${From}"
+                  th:data2="${To}"
+                  th:data3="${date}"
+                  th:onchange="changeHref(this.getAttribute('data1'),this.getAttribute('data2'),this.getAttribute('data3'))"
+                />
+              </div>
+              <div class="container text-center">
+                <a
+                  th:href="@{'/user/Round_Trip_Flight/'+${From}+'/'+${To}+'/'}"
+                  id="searchF"
+                  class="btn btn-outline-success"
+                  >Search</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="container col-md-12" th:if="${addFlights}">
+            <h1 class="text-center">Total Flight</h1>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#Flight No</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Intermediate</th>
+                    <th scope="col">Flight Name</th>
+                    <th scope="col">Departure</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Inter_Departure</th>
+                    <th scope="col">Inter_Arrival</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Day of Flight</th>
+                    <th scope="col">Available B_Seat</th>
+                    <th scope="col">Available E_Seat</th>
+                    <th scope="col">B_Price</th>
+                    <th scope="col">E_Price</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody style="color: white">
+                  <tr th:each="f : ${addFlights}">
+                    <th scope="row" th:text="${f.flightNo}">1</th>
+                    <td th:text="${f.From}">BBSR</td>
+                    <td th:text="${f.To}">NDLS</td>
+                    <td th:text="${f.intermediate}">NDLS</td>
+                    <td>
+                      <a th:href="@{#}" style="text-decoration: none">
+                        <img
+                          alt="No"
+                          th:src="@{/Images/plain.png}"
+                          class="my_profile_picture"
+                          src="#"
+                        />
+                      </a>
+                      <span th:text="${f.flightName}"> FlightName</span>
+                    </td>
+                    <td th:text="${f.departure}">5:30AM</td>
+                    <td th:text="${f.arrival}">8:30AM</td>
+                    <td th:text="${f.int_arrival_Time}">8:30AM</td>
+                    <td th:text="${f.int_departure_Time}">3h 00m</td>
+                    <td th:text="${f.duration}">3h 00m</td>
+                    <td th:text="${#strings.arrayJoin(f.days,',')}">mon,Tud</td>
+
+                    <td th:text="${f.B_Seat}"></td>
+                    <td th:text="${f.E_seat}"></td>
+                    <td th:text="${f.B_price}"></td>
+                    <td th:text="${f.E_price}"></td>
+                    <td>
+                      <form
+                        th:action="@{'/user/Round_Book_flight/'+${f.flightNo}+'/'+${date1}}"
+                        class="mt-2"
+                      >
+                        <button type="submit" class="btn btn-primary btn-sm">
+                          Book
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        const changeHref = (From, To, Date) => {
+          var Re_date = document.getElementById("slectDate").value;
+          document.getElementById(
+            "searchF"
+          ).href = `/user/Round_Trip_Flight/${From}/${To}/${Re_date}/${Date}`;
+          console.log(Re_date + " " + Date + " " + To + " " + From);
+        };
+      </script>
+    </section>
+  </body>
+</html>

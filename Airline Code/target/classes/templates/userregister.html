@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${title}">User Registration</title>
+    <style type="text/css">
+      body {
+        background-image: url("./Images/Airline.jpg");
+        background-color: transparent;
+        background-repeat: no-repeat;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div
+      class="container"
+      style="
+        width: 400px;
+        height: auto;
+        background: rgba(0, 0, 0, 0.5);
+        margin-top: 120px;
+        border-radius: 10px;
+      "
+    >
+      <div
+        th:if="${session.message}"
+        th:classappend="${session.message.type}"
+        class="alert"
+        role="alert"
+      >
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+      </div>
+      <div class="text-center mb-3">
+        <h2 class="text-white">NEW USER REGISTRATION</h2>
+      </div>
+      <form th:action="@{/Usersignup}" th:method="post" th:object="${user}">
+        <div class="mb-3">
+          <input
+            type="hidden"
+            class="form-control"
+            name="id"
+            value="<%=id%>"
+            readonly="readonly"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            th:value="${user.name}"
+            placeholder="Enter Name"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            th:value="${user.email}"
+            placeholder="Enter Email"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="address"
+            th:value="${user.address}"
+            placeholder="Enter Address"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="radio"
+            name="gender"
+            value="Male"
+            style="margin-left: 80px"
+          /><label style="color: white">Male</label
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="gender" value="Female" /><label
+            style="color: white"
+            >Female</label
+          >
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="number"
+            class="form-control"
+            name="mobileNo"
+            th:value="${user.mobileNo}"
+            placeholder="Enter Mobile Number"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="number"
+            class="form-control"
+            name="adharNo"
+            th:value="${user.adharNo}"
+            placeholder="Enter Citizen Number"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Enter Password"
+          />
+        </div>
+
+        <div class="text-center mt-4 mb-3">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <label style="margin-left: 70px; color: white"
+          >Already have an Account?
+          <a th:href="@{/signin}" style="color: blue; font-weight: bold"
+            >Login</a
+          ></label
+        >
+      </form>
+    </div>
+  </body>
+</html>

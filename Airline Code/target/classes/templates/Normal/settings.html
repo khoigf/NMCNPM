@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="Normal/base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Settings</title>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="col-md-12">
+          <div class="card">
+            <div
+              th:if="${session.message}"
+              th:classappend="${session.message.type}"
+              class="alert"
+              role="alert"
+            >
+              <p class="text-center" th:text="${session.message.content}"></p>
+              <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+            </div>
+            <div class="card-body">
+              <h3 class="my-3 text-center">Change Password</h3>
+
+              <form th:action="@{/user/change-password}" th:method="post">
+                <!-- old paassword field -->
+
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="oldPassword"
+                    class="form-control"
+                    placeholder="Enter Old Password"
+                    required
+                  />
+                </div>
+
+                <!-- new Password field -->
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="newPassword"
+                    class="form-control"
+                    placeholder="Enter New Password"
+                    required
+                  />
+                </div>
+
+                <div class="container text-center">
+                  <button type="submit" class="btn btn-success">Change</button>
+                  <button type="reset" class="btn btn-warning">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        addEventListener("load", () => {
+          document.getElementById("settings-link").classList.add("active");
+        });
+
+        addEventListener("unload", () => {
+          document.getElementById("settings-link").classList.remove("active");
+        });
+      </script>
+    </section>
+  </body>
+</html>

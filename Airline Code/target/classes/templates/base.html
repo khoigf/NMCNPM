@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:fragment="layout(content)"
+>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" th:href="@{/CSS/style.css}" />
+    <!-- toggle switch -->
+    <link
+      href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title th:text="${title}">Base Html</title>
+  </head>
+  <body>
+    <!-- navebar -->
+
+    <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Hust Airline System</a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-uppercase">
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/view_flight}"
+              >View Flight <span class="sr-only">(current)</span></a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              th:href="@{/signin}"
+              tabindex="-1"
+              aria-disabled="true"
+            >
+              <!--  <img class="img-fluid my_profile_picture"  alt="" th:src="@{/Images/default.png}" th:onerror="this.src='/Images/default.png';"> 
+         -->
+              <samp> Login</samp></a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              th:href="@{/signup}"
+              tabindex="-1"
+              aria-disabled="true"
+              >SignUp</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- End Navebar -->
+
+    <!--  <!-- Sidebar -->
+    <div class="sidebar mt-2" id="sid">
+      <span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+
+      <a id="home-link" href="#" th:href="@{/admin/show_flights/0}" class="item"
+        ><i class="fas fa-home"></i> Home</a
+      >
+      <a id="admin-link" href="#" th:href="@{/admin/newadmin}" class="item"
+        ><i class="fas fa-user-shield"></i> Register New Admin</a
+      >
+      <a id="add-link" href="#" th:href="@{/admin/addFlight}" class="item"
+        ><i class="fas fa-plane-departure"></i> Add Flight</a
+      >
+      <a id="profile-link" href="#" th:href="@{/admin/profile}" class="item"
+        ><i class="fas fa-user-circle"></i> Your Profile</a
+      >
+      <a id="settings-link" href="#" th:href="@{/admin/settings}" class="item"
+        ><i class="fas fa-cogs"></i> Setting</a
+      >
+      <a href="#" th:href="@{/logout}" class="item"
+        ><i class="fas fa-sign-out-alt"></i> Logout</a
+      >
+      <div class="divider"></div>
+    </div>
+    -->
+    <!--End Sidebar -->
+
+    <!-- Content Area -->
+    <div class="content mt-5" id="content">
+      <!-- <i onclick="toggleSidebar()" class="fas fa-bars m-3"></i> -->
+
+      <div th:replace="${content}"></div>
+    </div>
+    <!-- End Content Area -->
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    -->
+    <!-- toggle switch -->
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+    <script type="text/javascript" th:src="@{/JS/script.js}"></script>
+  </body>
+</html>

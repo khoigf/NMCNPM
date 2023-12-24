@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleab.org"
+  th:replace="Normal/base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>This is home Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="card mr-4 ml-4 mb-4 viewBooking">
+        <div
+          th:if="${session.message}"
+          th:classappend="${session.message.type}"
+          class="alert"
+          role="alert"
+        >
+          <p class="text-center" th:text="${session.message.content}"></p>
+          <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+        </div>
+        <div class="card-body">
+          <div class="container text-center mt-4">
+            <a th:href="@{/user/view_booking}" class="btn bg-primary text-white"
+              >View Booking</a
+            >
+            <a
+              th:href="@{/user/Round_view_booking}"
+              class="btn btn-warning text-white"
+              >Round Trip Booking</a
+            >
+          </div>
+          <div class="container col-md-12" th:if="${book_Ticket}">
+            <h1 class="text-center">Total Booking</h1>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#Ticket No</th>
+                    <th scope="col">#Flight No</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Flight Name</th>
+                    <th scope="col">Departure</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Trip Type</th>
+                    <th scope="col">Class Type</th>
+                    <th scope="col">Your Seat</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody style="color: white">
+                  <tr th:each="b : ${book_Ticket}">
+                    <th scope="row" th:text="${b.tId}">1</th>
+                    <th scope="row" th:text="${b.flightNo}">1</th>
+                    <td th:text="${b.from}">BBSR</td>
+                    <td th:text="${b.to}">NDLS</td>
+                    <td>
+                      <a th:href="@{#}" style="text-decoration: none">
+                        <img
+                          alt="No"
+                          th:src="@{/Images/plain.png}"
+                          class="my_profile_picture"
+                          src="#"
+                        />
+                      </a>
+                      <span th:text="${b.flightName}"> FlightName</span>
+                    </td>
+                    <td th:text="${b.depatureTime}">5:30AM</td>
+                    <td th:text="${b.arivalTime}">8:30AM</td>
+                    <td th:text="${b.duration}">3h 00m</td>
+                    <td th:text="${b.date}">date</td>
+                    <td th:text="${b.Re_date}">date</td>
+                    <td th:text="${b.tripType}">Trip</td>
+                    <td th:text="${b.trivalClass}">Class</td>
+                    <td th:text="${#strings.listJoin(seat,',')}">seatno</td>
+
+                    <td th:text="${b.price}">payment</td>
+                    <td th:text="${b.status}">status</td>
+                    <td>
+                      <button
+                        th:onclick="|cancelTicket(${b.tId})|"
+                        class="btn btn-warning btn-sm"
+                      >
+                        Cancel
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

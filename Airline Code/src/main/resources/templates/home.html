@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>This is home Page</title>
+  </head>
+  <body>
+    <section class="banner d-flex justify-content-center align-items-center">
+      <div class="text-center">
+        <div
+          th:if="${session.message}"
+          th:classappend="${session.message.type}"
+          class="alert"
+          role="alert"
+        >
+          <p class="text-center" th:text="${session.message.content}"></p>
+          <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+        </div>
+        <h1 class="font-weight-bold">Hust Airline System</h1>
+        <br />
+        <p>Chào mừng bạn đến với hãng hàng không Hust Airline</p>
+        <p>Vui lòng Đăng nhập/Đăng ký để sừ dụng dịch vụ</p>
+      </div>
+    </section>
+  </body>
+</html>

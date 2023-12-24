@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="Normal/base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>This is home Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="card mr-4 ml-4 mb-4 viewBack">
+        <div
+          th:if="${session.message}"
+          th:classappend="${session.message.type}"
+          class="alert"
+          role="alert"
+        >
+          <p class="text-center" th:text="${session.message.content}"></p>
+          <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <form th:action="@{/user/find_flight}">
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="inputState">From</label>
+                  <select id="inputState" name="From" class="form-control">
+                    <option selected>Choose...</option>
+                    <option
+                      th:each="flight : ${flights}"
+                      th:text="${flight.From}"
+                    >
+                      ...
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="inputState">To</label>
+                  <select id="inputState" name="To" class="form-control">
+                    <option selected>Choose...</option>
+                    <option
+                      th:each="flight : ${flights}"
+                      th:text="${flight.To}"
+                    >
+                      ...
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="inputState">Select Date</label>
+                  <input
+                    type="date"
+                    id="inputState"
+                    class="form-control"
+                    th:min="${date}"
+                    required
+                    name="date"
+                  />
+                </div>
+                <div class="container text-center">
+                  <button type="submit" class="btn btn-outline-success">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="container col-md-12" th:if="${addFlights}">
+            <h1 class="text-center">Total Flight</h1>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#Flight No</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Intermediate</th>
+                    <th scope="col">Flight Name</th>
+                    <th scope="col">Departure</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Inter_Departure</th>
+                    <th scope="col">Inter_Arrival</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Day of Flight</th>
+                    <th scope="col">Available B_Seat</th>
+                    <th scope="col">Available E_Seat</th>
+                    <th scope="col">B_Price</th>
+                    <th scope="col">E_Price</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody style="color: white">
+                  <tr th:each="f : ${addFlights}">
+                    <th scope="row" th:text="${f.flightNo}">1</th>
+                    <td th:text="${f.From}">BBSR</td>
+                    <td th:text="${f.To}">NDLS</td>
+                    <td th:text="${f.intermediate}">NDLS</td>
+                    <td>
+                      <a th:href="@{#}" style="text-decoration: none">
+                        <img
+                          alt="No"
+                          th:src="@{/Images/plain.png}"
+                          class="my_profile_picture"
+                          src="#"
+                        />
+                      </a>
+                      <span th:text="${f.flightName}"> FlightName</span>
+                    </td>
+                    <td th:text="${f.departure}">5:30AM</td>
+                    <td th:text="${f.arrival}">8:30AM</td>
+                    <td th:text="${f.int_arrival_Time}">8:30AM</td>
+                    <td th:text="${f.int_departure_Time}">3h 00m</td>
+                    <td th:text="${f.duration}">3h 00m</td>
+                    <td th:text="${#strings.arrayJoin(f.days,',')}">mon,Tud</td>
+
+                    <td th:text="${f.B_Seat}"></td>
+                    <td th:text="${f.E_seat}"></td>
+                    <td th:text="${f.B_price}"></td>
+                    <td th:text="${f.E_price}"></td>
+                    <td>
+                      <form
+                        th:action="@{'/user/Book_flight/'+${f.flightNo}+'/'+${date1}}"
+                        class="mt-2"
+                      >
+                        <button type="submit" class="btn btn-primary btn-sm">
+                          Book
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
