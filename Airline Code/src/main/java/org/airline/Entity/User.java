@@ -168,7 +168,8 @@ public class User {
 	public String toString() {
 		return "User [uId=" + uId + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
 				+ gender + ", mobileNo=" + mobileNo + ", adharNo=" + adharNo + ", address=" + address + ", role=" + role
-				+ ", enabled=" + enabled + ", balance=" + balance + "]";
+				+ ", enabled=" + enabled + ", balance=" + balance + ",Ticket : " + book_Tickets
+				+ round_Trips + "]";
 	}
 
 }

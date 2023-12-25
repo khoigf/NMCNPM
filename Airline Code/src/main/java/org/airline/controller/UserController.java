@@ -182,13 +182,15 @@ public class UserController {
 	}
 
 	// seat Booking
-	static Ticket book_t = new Ticket();
+	static Ticket book_t;
+	int numticket, numroundtrip;
 
 	@PostMapping("/seat")
 	public String seatOpen(@ModelAttribute Ticket book_Ticket, Model model) {
 		List<Ticket> book_Tickets = this.book_TicketService.findAllTicket();
+		numticket = book_Tickets.size();
 		List<Round_Trip> round_Trips = this.round_TripService.findAllTicket();
-
+		numroundtrip = round_Trips.size();
 		round_Trips = round_Trips.stream()
 				.filter(t -> (t.getFlightNo() == book_Ticket.getFlightNo()
 						&& t.getTrivalClass().equals(book_Ticket.getTrivalClass())
@@ -243,7 +245,6 @@ public class UserController {
 		// e.printStackTrace();
 		// }
 		// }
-
 		Flight addFlight = null;
 		if (book_Ticket.getTrivalClass().equals("Business")) {
 			addFlight = this.addFlightService.findByFlightNo(book_Ticket.getFlightNo());
@@ -268,14 +269,17 @@ public class UserController {
 	public ResponseEntity<?> seatDetail(@RequestBody Seat data[]) throws IOException {
 
 		if (data.length > 0) {
-			if (roundTrip != null) {
-				System.out.println(data.length + "adsjfsfsfff");
-				roundTrip.setRound_seatStore(data);
-				roundTrip.setRound_Price(roundTrip.getRound_Price() * data.length);
-			} else {
-
+			for (Seat d : data) {
+				System.out.println(d);
+			}
+			if (book_t != null) {
+				System.out.println(data.length + " seat");
 				book_t.setSeatStore(data);
 				book_t.setPrice(book_t.getPrice() * data.length);
+			} else {
+				System.out.println(data.length + " seat");
+				roundTrip.setRound_seatStore(data);
+				roundTrip.setRound_Price(roundTrip.getRound_Price() * data.length);
 			}
 		}
 		return ResponseEntity.of(Optional.of(data));
@@ -399,11 +403,13 @@ public class UserController {
 				findAdmin.setBalance(findAdmin.getBalance() + book_t.getPrice());
 				book_t.setStatus("Booked");
 				book_t.setUser(user);
+				book_t.settId(numticket + 1);
 				List<Ticket> book_Tickets = new ArrayList<>();
 				book_Tickets.addAll(user.getBook_Tickets());
 				book_Tickets.add(book_t);
 				user.setBook_Tickets(book_Tickets);
-
+				System.out.println(user);
+				System.out.println(book_t);
 				User user2 = this.userService.saveData(user);
 
 				bookticket = user2.getBook_Tickets().get(user2.getBook_Tickets().size() - 1);
@@ -415,8 +421,9 @@ public class UserController {
 				findAdmin.setBalance(findAdmin.getBalance() + (roundTrip.getPrice() + roundTrip.getRound_Price()));
 				roundTrip.setStatus("Booked");
 				roundTrip.setUser(user);
+				roundTrip.settId(numroundtrip + 1);
 				user.getRound_Trips().add(roundTrip);
-
+				System.out.println(user);
 				User user2 = this.userService.saveData(user);
 
 				round_trip = user2.getRound_Trips().get(user2.getRound_Trips().size() - 1);
@@ -432,8 +439,8 @@ public class UserController {
 
 	// open setting handler
 	@GetMapping("/settings")
-	public String openSettings() {
-
+	public String openSettings(Model model) {
+		model.addAttribute("title", "Settings");
 		return "Normal/settings";
 	}
 
@@ -644,13 +651,14 @@ public class UserController {
 	}
 
 	// roundTrip Seat Open
-	static Round_Trip roundTrip = new Round_Trip();
+	static Round_Trip roundTrip;
 
 	@PostMapping("/Round_seat")
 	public String RoundTripSeatOpen(@ModelAttribute Round_Trip roundTrip_book_Ticket, Model model) {
 		List<Ticket> book_Tickets = this.book_TicketService.findAllTicket();
+		numticket = book_Tickets.size();
 		List<Round_Trip> round_Trips = this.round_TripService.findAllTicket();
-
+		numroundtrip = round_Trips.size();
 		round_Trips = round_Trips.stream()
 				.filter(t -> (t.getFlightNo() == roundTrip_book_Ticket.getRound_flightNo()
 						&& t.getTrivalClass().equals(roundTrip_book_Ticket.getRound_trivalClass())

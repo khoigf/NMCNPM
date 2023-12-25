@@ -1,7 +1,6 @@
 package org.airline.Entity;
 
 import java.util.Arrays;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
